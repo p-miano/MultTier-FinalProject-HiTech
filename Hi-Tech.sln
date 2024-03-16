@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hi-TechLibrary", "Hi-TechLibrary\Hi-TechLibrary.csproj", "{1702AFF9-8C35-4B76-9AB6-CE141AC78910}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hi-TechApp-Module1", "Hi-TechApp\Hi-TechApp-Module1.csproj", "{529461C4-02D0-445F-AAED-4ABABB3C554F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1702AFF9-8C35-4B76-9AB6-CE141AC78910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1702AFF9-8C35-4B76-9AB6-CE141AC78910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1702AFF9-8C35-4B76-9AB6-CE141AC78910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1702AFF9-8C35-4B76-9AB6-CE141AC78910}.Release|Any CPU.Build.0 = Release|Any CPU
+		{529461C4-02D0-445F-AAED-4ABABB3C554F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{529461C4-02D0-445F-AAED-4ABABB3C554F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{529461C4-02D0-445F-AAED-4ABABB3C554F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{529461C4-02D0-445F-AAED-4ABABB3C554F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8EFCBAD3-B158-4DF7-9F94-51CC32F09FBF}
+	EndGlobalSection
+EndGlobal
