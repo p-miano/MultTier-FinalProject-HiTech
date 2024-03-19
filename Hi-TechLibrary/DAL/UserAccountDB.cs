@@ -12,173 +12,176 @@ namespace Hi_TechLibrary.DAL
     {
         public static void SaveRecord(UserAccount userAccount)
         {
-            // Open a connection
-            SqlConnection conn = UtilityDB.GetDBConnection();
-            // Create a command object
-            SqlCommand cmd = new SqlCommand();
-            // Set the Connection property
-            cmd.Connection = conn;
-            // Set the command text
-            cmd.CommandText = "INSERT INTO UserAccount (EmployeeID, Username, Password, Role, StatusID, MustChangePassword) " +
-                "VALUES (@EmployeeID, @Username, @Password, @UserRole, @StatusID, @MustChangePassword)";
-            // Add values to the parameters
-            cmd.Parameters.AddWithValue("@EmployeeID", userAccount.EmployeeID);
-            cmd.Parameters.AddWithValue("@Username", userAccount.Username);
-            cmd.Parameters.AddWithValue("@Password", userAccount.Password);
-            cmd.Parameters.AddWithValue("@UserRole", userAccount.UserRole);
-            cmd.Parameters.AddWithValue("@StatusID", userAccount.StatusID);
-            cmd.Parameters.AddWithValue("@MustChangePassword", userAccount.MustChangePassword);
-            // Execute the command
-            cmd.ExecuteNonQuery();
-            // Close the connection
-            conn.Close();
-
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO UserAccounts (EmployeeID, Username, Password, UserRole, StatusID, MustChangePassword) " +
+                                                          "VALUES (@EmployeeID, @Username, @Password, @UserRole, @StatusID, @MustChangePassword)", conn);
+                cmd.Parameters.AddWithValue("@EmployeeID", userAccount.EmployeeID);
+                cmd.Parameters.AddWithValue("@Username", userAccount.Username);
+                cmd.Parameters.AddWithValue("@Password", userAccount.Password);
+                cmd.Parameters.AddWithValue("@UserRole", userAccount.UserRole.ToString());
+                cmd.Parameters.AddWithValue("@StatusID", userAccount.StatusID);
+                cmd.Parameters.AddWithValue("@MustChangePassword", userAccount.MustChangePassword);
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public static List<UserAccount> GetAllRecords()
         {
             List<UserAccount> listUsers = new List<UserAccount>();
-            SqlConnection conn = UtilityDB.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM UserAccount", conn);
-            SqlDataReader reader = cmd.ExecuteReader();
-            UserAccount user;
-            while (reader.Read())
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
             {
-                user = new UserAccount();
-                user.EmployeeID = Convert.ToInt32(reader["EmployeeID"]);
-                user.Username = reader["Username"].ToString();
-                user.Password = reader["Password"].ToString();
-                // Convert the UserRole from string to UserRole enum
-                string roleString = reader["UserRole"].ToString();
-                if (Enum.TryParse<UserRole>(roleString, out UserRole role))
+                SqlCommand cmd = new SqlCommand("SELECT * FROM UserAccounts", conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                UserAccount user;
+                while (reader.Read())
                 {
-                    user.UserRole = role;
+                    user = new UserAccount();
+                    user.EmployeeID = Convert.ToInt32(reader["EmployeeID"]);
+                    user.UserID = Convert.ToInt32(reader["UserID"]);
+                    user.Username = reader["Username"].ToString();
+                    user.Password = reader["Password"].ToString();
+                    // Convert the UserRole from string to UserRole enum
+                    string roleString = reader["UserRole"].ToString();
+                    if (Enum.TryParse<UserRole>(roleString, out UserRole role))
+                    {
+                        user.UserRole = role;
+                    }
+                    else
+                    {
+                        user.UserRole = UserRole.Default;
+                    }
+                    user.DateCreated = Convert.ToDateTime(reader["DateCreated"]);
+                    user.DateModified = reader["DateModified"] as DateTime?;
+                    user.StatusID = Convert.ToInt32(reader["StatusID"]);
+                    user.MustChangePassword = Convert.ToBoolean(reader["MustChangePassword"]);
+                    listUsers.Add(user);
                 }
-                else
-                {
-                    user.UserRole = UserRole.Default;
-                }
-                user.DateCreated = Convert.ToDateTime(reader["DateCreated"]);
-                user.DateModified = reader["DateModified"] as DateTime?;
-                user.StatusID = Convert.ToInt32(reader["StatusID"]);
-                user.MustChangePassword = Convert.ToBoolean(reader["MustChangePassword"]);
-                listUsers.Add(user);
             }
-            conn.Close();
             return listUsers;
         }
 
-        // Method to search for a user by UserID or EmployeeID
-        public static UserAccount Search(int id)
+        public static UserAccount SearchById(int id)
         {
             UserAccount user = new UserAccount();
-            SqlConnection conn = UtilityDB.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM UserAccount WHERE UserID = @ID OR EmployeeID = @ID", conn);
-            cmd.Parameters.AddWithValue("@ID", id);
-            SqlDataReader reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
             {
-                user.EmployeeID = Convert.ToInt32(reader["EmployeeID"]);
-                user.Username = reader["Username"].ToString();
-                user.Password = reader["Password"].ToString();
-                // Convert the UserRole from string to UserRole enum
-                string roleString = reader["UserRole"].ToString();
-                if (Enum.TryParse<UserRole>(roleString, out UserRole role))
+                SqlCommand cmd = new SqlCommand("SELECT * FROM UserAccounts WHERE UserID = @ID", conn);
+                cmd.Parameters.AddWithValue("@ID", id);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
                 {
-                    user.UserRole = role;
+                    user.UserID = Convert.ToInt32(reader["UserID"]);
+                    user.EmployeeID = Convert.ToInt32(reader["EmployeeID"]);
+                    user.Username = reader["Username"].ToString();
+                    user.Password = reader["Password"].ToString();
+                    // Convert the UserRole from string to UserRole enum
+                    string roleString = reader["UserRole"].ToString();
+                    if (Enum.TryParse<UserRole>(roleString, out UserRole role))
+                    {
+                        user.UserRole = role;
+                    }
+                    else
+                    {
+                        user.UserRole = UserRole.Default;
+                    }
+                    user.DateCreated = Convert.ToDateTime(reader["DateCreated"]);
+                    user.DateModified = reader["DateModified"] as DateTime?;
+                    user.StatusID = Convert.ToInt32(reader["StatusID"]);
+                    user.MustChangePassword = Convert.ToBoolean(reader["MustChangePassword"]);
                 }
-                else
-                {
-                    user.UserRole = UserRole.Default;
-                }
-                user.DateCreated = Convert.ToDateTime(reader["DateCreated"]);
-                user.DateModified = reader["DateModified"] as DateTime?;
-                user.StatusID = Convert.ToInt32(reader["StatusID"]);
-                user.MustChangePassword = Convert.ToBoolean(reader["MustChangePassword"]);
             }
-            conn.Close();
             return user;
         }
 
-        // Overloaded method to search for a user by one string parameter (username or role)
-        public static List<UserAccount> Search(string searchStr)
+        public static UserAccount SearchByUsername(string username)
+        {
+            UserAccount user = new UserAccount();
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM UserAccounts WHERE Username = @Username", conn);
+                cmd.Parameters.AddWithValue("@Username", username);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    user.UserID = Convert.ToInt32(reader["UserID"]);
+                    user.EmployeeID = Convert.ToInt32(reader["EmployeeID"]);
+                    user.Username = reader["Username"].ToString();
+                    user.Password = reader["Password"].ToString();
+                    // Convert the UserRole from string to UserRole enum
+                    string roleString = reader["UserRole"].ToString();
+                    if (Enum.TryParse<UserRole>(roleString, out UserRole role))
+                    {
+                        user.UserRole = role;
+                    }
+                    else
+                    {
+                        user.UserRole = UserRole.Default;
+                    }
+                    user.DateCreated = Convert.ToDateTime(reader["DateCreated"]);
+                    user.DateModified = reader["DateModified"] as DateTime?;
+                    user.StatusID = Convert.ToInt32(reader["StatusID"]);
+                    user.MustChangePassword = Convert.ToBoolean(reader["MustChangePassword"]);
+                }
+            }
+            return user;
+        }
+
+        public static List<UserAccount> SearchByUserRole(UserRole userRole)
         {
             List<UserAccount> listUsers = new List<UserAccount>();
-            SqlConnection conn = UtilityDB.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM UserAccount WHERE Username LIKE @SearchStr OR UserRole LIKE @SearchStr", conn);
-            cmd.Parameters.AddWithValue("@SearchStr", "%" + searchStr + "%");
-            SqlDataReader reader = cmd.ExecuteReader();
-            UserAccount user;
-            while (reader.Read())
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
             {
-                user = new UserAccount();
-                user.EmployeeID = Convert.ToInt32(reader["EmployeeID"]);
-                user.Username = reader["Username"].ToString();
-                user.Password = reader["Password"].ToString();
-                // Convert the UserRole from string to UserRole enum
-                string roleString = reader["UserRole"].ToString();
-                if (Enum.TryParse<UserRole>(roleString, out UserRole role))
+                SqlCommand cmd = new SqlCommand("SELECT * FROM UserAccounts WHERE UserRole = @UserRole", conn);
+                // Convert the Enum to a string for the SQL query
+                cmd.Parameters.AddWithValue("@UserRole", userRole.ToString());
+                SqlDataReader reader = cmd.ExecuteReader();
+                UserAccount user;
+                while (reader.Read())
                 {
-                    user.UserRole = role;
+                    user = new UserAccount();
+                    user.EmployeeID = Convert.ToInt32(reader["EmployeeID"]);
+                    user.UserID = Convert.ToInt32(reader["UserID"]);
+                    user.Username = reader["Username"].ToString();
+                    user.Password = reader["Password"].ToString();
+                    // Since we're fetching by UserRole, we already know the role, no need to parse
+                    user.UserRole = userRole;
+                    user.DateCreated = Convert.ToDateTime(reader["DateCreated"]);
+                    user.DateModified = reader["DateModified"] as DateTime?;
+                    user.StatusID = Convert.ToInt32(reader["StatusID"]);
+                    user.MustChangePassword = Convert.ToBoolean(reader["MustChangePassword"]);
+                    listUsers.Add(user);
                 }
-                else
-                {
-                    user.UserRole = UserRole.Default;
-                }
-                user.DateCreated = Convert.ToDateTime(reader["DateCreated"]);
-                user.DateModified = reader["DateModified"] as DateTime?;
-                user.StatusID = Convert.ToInt32(reader["StatusID"]);
-                user.MustChangePassword = Convert.ToBoolean(reader["MustChangePassword"]);
-                listUsers.Add(user);
             }
-            conn.Close();
             return listUsers;
         }
 
-        public static void UpdateRecord(UserAccount user)
+        public static void UpdateRecord(UserAccount userAccount)
         {
-            // Open a connection
-            SqlConnection conn = UtilityDB.GetDBConnection();
-            // Create a command object
-            SqlCommand cmd = new SqlCommand();
-            // Set the Connection property
-            cmd.Connection = conn;
-            // Set the command text
-            cmd.CommandText = "UPDATE UserAccount SET Username = @Username, Password = @Password, UserRole = @UserRole, DateModified = @DateModified, StatusID = @StatusID, MustChangePassword = @MustChangePassword " +
-                "WHERE UserID = @UserID";
-            // Add values to the parameters
-            cmd.Parameters.AddWithValue("@Username", user.Username);
-            cmd.Parameters.AddWithValue("@Password", user.Password);
-            cmd.Parameters.AddWithValue("@UserRole", user.UserRole);
-            cmd.Parameters.AddWithValue("@DateModified", user.DateModified);
-            cmd.Parameters.AddWithValue("@StatusID", user.StatusID);
-            cmd.Parameters.AddWithValue("@MustChangePassword", user.MustChangePassword);
-            cmd.Parameters.AddWithValue("@UserID", user.UserID);
-            // Execute the command
-            cmd.ExecuteNonQuery();
-            // Close the connection
-            conn.Close();
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
+            {
+                SqlCommand cmd = new SqlCommand("UPDATE UserAccounts SET Username = @Username, Password = @Password, UserRole = @UserRole, DateModified = @DateModified, StatusID = @StatusID, MustChangePassword = @MustChangePassword " +
+                                       "WHERE UserID = @UserID", conn);
+                cmd.Parameters.AddWithValue("@Username", userAccount.Username);
+                cmd.Parameters.AddWithValue("@Password", userAccount.Password);
+                cmd.Parameters.AddWithValue("@UserRole", userAccount.UserRole.ToString());
+                cmd.Parameters.AddWithValue("@DateModified", userAccount.DateModified.HasValue ? (object)userAccount.DateModified.Value : DBNull.Value);
+                cmd.Parameters.AddWithValue("@StatusID", userAccount.StatusID);
+                cmd.Parameters.AddWithValue("@MustChangePassword", userAccount.MustChangePassword);
+                cmd.Parameters.AddWithValue("@UserID", userAccount.UserID);
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public static void DeleteRecord(int userID)
         {
-            SqlConnection conn = UtilityDB.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("DELETE FROM UserAccount WHERE UserID = @UserID", conn);
-            cmd.Parameters.AddWithValue("@UserID", userID);
-            try
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
             {
-                conn.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM UserAccounts WHERE UserID = @UserID", conn);
+                cmd.Parameters.AddWithValue("@UserID", userID);
                 cmd.ExecuteNonQuery();
             }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                conn.Close();
-            }
-
         }
+
     }
 }

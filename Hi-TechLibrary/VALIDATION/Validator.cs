@@ -10,22 +10,9 @@ namespace Hi_TechLibrary.VALIDATION
     {
         public static bool IsValidID(string input)
         {
-            if (input.Length != 5)
-            {
-                return false;
-            }
-            else
-            {
-                foreach (char c in input)
-                {
-                    if (!char.IsDigit(c))
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
+            return int.TryParse(input, out _); // The 'out _' discards the out parameter since we're only interested in whether the conversion succeeds
         }
+
 
         public static bool IsValidEmail(string input)
         {
@@ -48,25 +35,6 @@ namespace Hi_TechLibrary.VALIDATION
             }
         }
 
-        public static bool IsValidPhoneNumber(string input)
-        {
-            if (input.Length != 12)
-            {
-                return false;
-            }
-            else
-            {
-                foreach (char c in input)
-                {
-                    if (!char.IsDigit(c) && c != '-')
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
-
         public static bool IsValidName(string input)
         {
             if (input.Length < 2)
@@ -82,6 +50,18 @@ namespace Hi_TechLibrary.VALIDATION
                         return false;
                     }
                 }
+                return true;
+            }
+        }
+
+        public static bool isValidUsername(string input)
+        {
+            if (input.Length < 5)
+            {
+                return false;
+            }
+            else
+            {
                 return true;
             }
         }

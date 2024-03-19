@@ -16,7 +16,7 @@ namespace Hi_TechApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormEmployee());
+            Application.Run(new FormMenu());
         }
     }
 }

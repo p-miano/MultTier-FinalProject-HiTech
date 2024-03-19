@@ -12,121 +12,132 @@ namespace Hi_TechLibrary.DAL
     {
         public static void SaveRecord(Employee employee)
         {
-            // Open a connection
-            SqlConnection conn = UtilityDB.GetDBConnection();
-            // Create a command object
-            SqlCommand cmd = new SqlCommand();
-            // Set the Connection property
-            cmd.Connection = conn;
-            // Set the command text
-            cmd.CommandText = "INSERT INTO Employees (FirstName, LastName, Email, PhoneNumber, PositionID, StatusID) " +
-                "VALUES (@FirstName, @LastName, @Email, @PhoneNumber, @PositionID, @StatusID)";
-            // Add values to the parameters
-            cmd.Parameters.AddWithValue("@FirstName", employee.FirstName);
-            cmd.Parameters.AddWithValue("@LastName", employee.LastName);
-            cmd.Parameters.AddWithValue("@Email", employee.Email);
-            cmd.Parameters.AddWithValue("@PhoneNumber", employee.PhoneNumber);
-            cmd.Parameters.AddWithValue("@PositionID", employee.PositionID);
-            cmd.Parameters.AddWithValue("@StatusID", employee.StatusID);
-            // Execute the command
-            cmd.ExecuteNonQuery();
-            // Close the connection
-            conn.Close();
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO Employees (FirstName, LastName, Email, PhoneNumber, PositionID, StatusID) " +
+                                       "VALUES (@FirstName, @LastName, @Email, @PhoneNumber, @PositionID, @StatusID)", conn);
+                cmd.Parameters.AddWithValue("@FirstName", employee.FirstName);
+                cmd.Parameters.AddWithValue("@LastName", employee.LastName);
+                cmd.Parameters.AddWithValue("@Email", employee.Email);
+                cmd.Parameters.AddWithValue("@PhoneNumber", employee.PhoneNumber);
+                cmd.Parameters.AddWithValue("@PositionID", employee.PositionID);
+                cmd.Parameters.AddWithValue("@StatusID", employee.StatusID);
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public static List<Employee> GetAllRecords()
         {
             List<Employee> listEmployees = new List<Employee>();
-            SqlConnection conn = UtilityDB.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Employees", conn);
-            SqlDataReader reader = cmd.ExecuteReader();
-            Employee employee;
-            while (reader.Read())
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
             {
-                employee = new Employee(Convert.ToInt32(reader["EmployeeID"]), reader["FirstName"].ToString(), reader["LastName"].ToString(), reader["Email"].ToString(), reader["PhoneNumber"].ToString(), Convert.ToInt32(reader["PositionID"]), reader["Department"].ToString(), Convert.ToInt32(reader["StatusID"]));
-                listEmployees.Add(employee);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Employees", conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                Employee employee;
+                while (reader.Read())
+                {
+                    employee = new Employee(Convert.ToInt32(reader["EmployeeID"]), reader["FirstName"].ToString(), reader["LastName"].ToString(), reader["Email"].ToString(), reader["PhoneNumber"].ToString(), Convert.ToInt32(reader["PositionID"]), Convert.ToInt32(reader["StatusID"]));
+                    listEmployees.Add(employee);
+                }
             }
-            conn.Close();
             return listEmployees;
         }
 
-        public static Employee SearchById (int employeeID)
+        public static Employee SearchById(int employeeID)
         {
             Employee employee = new Employee();
-            SqlConnection conn = UtilityDB.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Employees WHERE EmployeeID = @EmployeeID", conn);
-            cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
-            SqlDataReader reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
             {
-                employee = new Employee(Convert.ToInt32(reader["EmployeeID"]), reader["FirstName"].ToString(), reader["LastName"].ToString(), reader["Email"].ToString(), reader["PhoneNumber"].ToString(), Convert.ToInt32(reader["PositionID"]), reader["Department"].ToString(), Convert.ToInt32(reader["StatusID"]));
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Employees WHERE EmployeeID = @EmployeeID", conn);
+                cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    employee = new Employee(Convert.ToInt32(reader["EmployeeID"]), reader["FirstName"].ToString(), reader["LastName"].ToString(), reader["Email"].ToString(), reader["PhoneNumber"].ToString(), Convert.ToInt32(reader["PositionID"]), Convert.ToInt32(reader["StatusID"]));
+                }
+                else
+                {
+                    employee = null;
+                }
             }
-            else
-            {
-                employee = null;
-            }
-            conn.Close();
             return employee;
         }
-
+        
         public static Employee SearchByEmail(string email)
         {
             Employee employee = new Employee();
-            SqlConnection conn = UtilityDB.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Employees WHERE Email = @SearchStr", conn);
-            cmd.Parameters.AddWithValue("@SearchStr", email);
-            SqlDataReader reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
             {
-                employee = new Employee(Convert.ToInt32(reader["EmployeeID"]), reader["FirstName"].ToString(), reader["LastName"].ToString(), reader["Email"].ToString(), reader["PhoneNumber"].ToString(), Convert.ToInt32(reader["PositionID"]), reader["Department"].ToString(), Convert.ToInt32(reader["StatusID"]));
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Employees WHERE Email = @SearchStr", conn);
+                cmd.Parameters.AddWithValue("@SearchStr", email);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    employee = new Employee(Convert.ToInt32(reader["EmployeeID"]), reader["FirstName"].ToString(), reader["LastName"].ToString(), reader["Email"].ToString(), reader["PhoneNumber"].ToString(), Convert.ToInt32(reader["PositionID"]), Convert.ToInt32(reader["StatusID"]));
+                }
+                else
+                {
+                    employee = null;
+                }
             }
-            else
-            {
-                employee = null;
-            }
-            conn.Close();
             return employee;
+        }
+
+        public static List<Employee> SearchByPosition(int positionID)
+        {
+            List<Employee> listEmployees = new List<Employee>();
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Employees WHERE PositionID = @PositionID", conn);
+                cmd.Parameters.AddWithValue("@PositionID", positionID);
+                SqlDataReader reader = cmd.ExecuteReader();
+                Employee employee;
+                while (reader.Read())
+                {
+                    employee = new Employee(Convert.ToInt32(reader["EmployeeID"]), reader["FirstName"].ToString(), reader["LastName"].ToString(), reader["Email"].ToString(), reader["PhoneNumber"].ToString(), Convert.ToInt32(reader["PositionID"]), Convert.ToInt32(reader["StatusID"]));
+                    listEmployees.Add(employee);
+                }
+            }
+            return listEmployees;
         }
 
         public static List<Employee> SearchByNameOrPhone(string searchStr)
         {
             List<Employee> listEmployees = new List<Employee>();
-            SqlConnection conn = UtilityDB.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Employees WHERE FirstName LIKE @SearchStr OR LastName LIKE @SearchStr OR Email LIKE @SearchStr OR PhoneNumber LIKE @SearchStr", conn);
-            cmd.Parameters.AddWithValue("@SearchStr", "%" + searchStr + "%");
-            SqlDataReader reader = cmd.ExecuteReader();
-            Employee employee;
-            while (reader.Read())
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
             {
-                employee = new Employee(Convert.ToInt32(reader["EmployeeID"]), reader["FirstName"].ToString(), reader["LastName"].ToString(), reader["Email"].ToString(), reader["PhoneNumber"].ToString(), Convert.ToInt32(reader["PositionID"]), reader["Department"].ToString(), Convert.ToInt32(reader["StatusID"]));
-                listEmployees.Add(employee);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Employees WHERE FirstName LIKE @SearchStr OR LastName LIKE @SearchStr OR Email LIKE @SearchStr OR PhoneNumber LIKE @SearchStr", conn);
+                cmd.Parameters.AddWithValue("@SearchStr", "%" + searchStr + "%");
+                SqlDataReader reader = cmd.ExecuteReader();
+                Employee employee;
+                while (reader.Read())
+                {
+                    employee = new Employee(Convert.ToInt32(reader["EmployeeID"]), reader["FirstName"].ToString(), reader["LastName"].ToString(), reader["Email"].ToString(), reader["PhoneNumber"].ToString(), Convert.ToInt32(reader["PositionID"]), Convert.ToInt32(reader["StatusID"]));
+                    listEmployees.Add(employee);
+                }
             }
-            conn.Close();
             return listEmployees;
         }
 
         public static List<Employee> SearchByFirstAndLastName(string firstName, string lastName)
         {
             List<Employee> listEmployees = new List<Employee>();
-            SqlConnection conn = UtilityDB.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Employees WHERE FirstName LIKE @FirstName AND LastName LIKE @LastName", conn);
-    
-            cmd.Parameters.AddWithValue("@FirstName", "%" + firstName + "%");
-            cmd.Parameters.AddWithValue("@LastName", "%" + lastName + "%");
-
-            SqlDataReader reader = cmd.ExecuteReader();
-            Employee employee;
-            while (reader.Read())
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
             {
-                employee = new Employee(Convert.ToInt32(reader["EmployeeID"]), reader["FirstName"].ToString(), reader["LastName"].ToString(), reader["Email"].ToString(), reader["PhoneNumber"].ToString(), Convert.ToInt32(reader["PositionID"]), reader["Department"].ToString(), Convert.ToInt32(reader["StatusID"]));
-                listEmployees.Add(employee);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Employees WHERE FirstName LIKE @FirstName AND LastName LIKE @LastName", conn);
+                cmd.Parameters.AddWithValue("@FirstName", "%" + firstName + "%");
+                cmd.Parameters.AddWithValue("@LastName", "%" + lastName + "%");
+                SqlDataReader reader = cmd.ExecuteReader();
+                Employee employee;
+                while (reader.Read())
+                {
+                    employee = new Employee(Convert.ToInt32(reader["EmployeeID"]), reader["FirstName"].ToString(), reader["LastName"].ToString(), reader["Email"].ToString(), reader["PhoneNumber"].ToString(), Convert.ToInt32(reader["PositionID"]), Convert.ToInt32(reader["StatusID"]));
+                    listEmployees.Add(employee);
+                }
             }
-            conn.Close();
             return listEmployees;
         }
 
-
-        // Method to update an employee in the database
         public static void UpdateRecord(Employee employee)
         {
             using (SqlConnection conn = UtilityDB.GetDBConnection())
@@ -143,24 +154,13 @@ namespace Hi_TechLibrary.DAL
             }
         }
 
-        // Method to delete an employee from the database
         public static void DeleteRecord(int employeeID)
         {
-            SqlConnection conn = UtilityDB.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("DELETE FROM Employees WHERE EmployeeID = @EmployeeID", conn);
-            cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
-            try
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
             {
-                conn.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM Employees WHERE EmployeeID = @EmployeeID", conn);
+                cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
                 cmd.ExecuteNonQuery();
-            }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                conn.Close();
             }
         }
     }

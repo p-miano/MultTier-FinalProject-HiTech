@@ -41,5 +41,11 @@ namespace Hi_TechLibrary.BLL
             return PositionDB.GetAllRecords();
         }
 
+        // Method to get the position title from the id
+        public string GetPositionById(int positionId)
+        {
+            return PositionDB.GetPositionTitle(positionId);
+        }
+
     }
 }

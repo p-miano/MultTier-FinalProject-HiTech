@@ -10,7 +10,7 @@ namespace Hi_TechLibrary.BLL
     public class Employee
     {
         // Properties
-        public int EmployeeID { get; } // Database will generate EmployeeID
+        public int EmployeeID { get; set; } 
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -30,7 +30,7 @@ namespace Hi_TechLibrary.BLL
         }
 
         // Parameterized constructor for new employee creation. Database will generate EmployeeID.
-        public Employee(string firstName, string lastName, string email, string phoneNumber, int positionID, string department)
+        public Employee(string firstName, string lastName, string email, string phoneNumber, int positionID)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -41,7 +41,7 @@ namespace Hi_TechLibrary.BLL
         }
 
         // Overloaded constructor for retrieving an existing employee from the database.
-        public Employee(int employeeID, string firstName, string lastName, string email, string phoneNumber, int positionID, string department, int statusID)
+        public Employee(int employeeID, string firstName, string lastName, string email, string phoneNumber, int positionID, int statusID)
         {
             EmployeeID = employeeID;
             FirstName = firstName;
@@ -76,6 +76,12 @@ namespace Hi_TechLibrary.BLL
             return EmployeeDB.SearchByEmail(email);
         }
 
+        // Method to search for employees by position
+        public List<Employee> SearchEmployeesByPosition(int positionID)
+        {
+            return EmployeeDB.SearchByPosition(positionID);
+        }
+
         // Method to search for an employee by first name, last name or phone number
         public List<Employee> SearchEmployees(string searchStr)
         {
@@ -86,6 +92,18 @@ namespace Hi_TechLibrary.BLL
         public List<Employee> SearchEmployees(string firstName, string lastName)
         {
             return EmployeeDB.SearchByFirstAndLastName(firstName, lastName);
+        }
+
+        // Method to update an employee in the database
+        public void UpdateEmployee(Employee employee)
+        {
+            EmployeeDB.UpdateRecord(employee);
+        }
+
+        // Method to delete an employee from the database
+        public void DeleteEmployee(int employeeID)
+        {
+            EmployeeDB.DeleteRecord(employeeID);
         }
     }
 }
