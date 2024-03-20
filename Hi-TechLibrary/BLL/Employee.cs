@@ -52,10 +52,10 @@ namespace Hi_TechLibrary.BLL
             StatusID = statusID;
         }
 
-        // Method to save an employee to the database
-        public void SaveEmployee(Employee employee)
+        // Method to save an employee to the database. Returns the EmployeeID of the new record.
+        public int SaveEmployee(Employee employee)
         {
-            EmployeeDB.SaveRecord(employee);
+            return EmployeeDB.SaveRecord(employee);
         }
 
         // Method to get all employees from the database

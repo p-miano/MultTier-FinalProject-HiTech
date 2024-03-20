@@ -15,12 +15,11 @@ namespace Hi_TechApp
     public partial class FormUserAccount : Form
     {
         private int? employeeId;
-
-        #region Initialization
         public FormUserAccount()
         {
             InitializeComponent();
             PopulateUserRoleComboBox();
+            SetInitialState();
         }
         // Overloaded constructor to receive the employeeId from the Employee form
         public FormUserAccount(int employeeId)
@@ -29,54 +28,27 @@ namespace Hi_TechApp
             InitializeComponent();
             FillEmployeeInfo(employeeId);
             FillUserAccountInfo(employeeId);
+            SetStateAfterSuccessfulSearch();
         }
-        private void FillEmployeeInfo(int employeeId)
-        {
-            Employee employee = new Employee().SearchEmployeeById(employeeId);
-            if (employee != null)
-            {
-                txtBoxEmployeeId.Text = employee.EmployeeID.ToString();
-                txtBoxFirstName.Text = employee.FirstName;
-                txtBoxLastName.Text = employee.LastName;
-                txtBoxEmail.Text = employee.Email;
-                Position position = new Position();
-                txtBoxPosition.Text = position.GetPositionById(employee.PositionID);
-            }
-        }
-        private void FillUserAccountInfo(int employeeId)
-        {
-            UserAccount userAccount = new UserAccount().SearchUserAccountById(employeeId);
-            if (userAccount != null)
-            {
-                txtBoxUserId.Text = userAccount.UserID.ToString();
-                txtBoxUsername.Text = userAccount.Username;
-                PopulateUserRoleComboBox();
-
-                // Find and select the current user role in the ComboBox
-                foreach (var item in cmbBoxUserRole.Items)
-                {
-                    if (item.ToString() == Utilities.GetEnumDescription(userAccount.UserRole))
-                    {
-                        cmbBoxUserRole.SelectedItem = item;
-                        break;
-                    }
-                }
-            }
-        }
-        private void PopulateUserRoleComboBox()
-        {
-            cmbBoxUserRole.Items.Clear();
-            foreach (UserRole role in Enum.GetValues(typeof(UserRole)))
-            {
-                cmbBoxUserRole.Items.Add(Utilities.GetEnumDescription(role));
-            }
-            cmbBoxUserRole.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cmbBoxUserRole.AutoCompleteSource = AutoCompleteSource.ListItems;
-            cmbBoxUserRole.SelectedIndex = -1;
-        }
-        #endregion
 
         #region Buttons
+        private void btnLinkEmployee_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtBoxEmployeeId.Text.Trim(), out int employeeId))
+            {
+                Employee employee = new Employee().SearchEmployeeById(employeeId);
+                if (employee != null)
+                {
+                    FormEmployee formEmployee = new FormEmployee(employeeId);
+                    formEmployee.ShowDialog();
+                    this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid Employee ID format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void btnAddNewUserAccount_Click(object sender, EventArgs e)
         {
             if (!ValidateUserAccountInput())
@@ -122,6 +94,7 @@ namespace Hi_TechApp
                 if (Validator.IsValidID(userIdInput))
                 {
                     SearchUserAccountByUserId(userIdInput);
+                    SetStateAfterSuccessfulSearch();
                     return;
                 }
                 else
@@ -137,6 +110,7 @@ namespace Hi_TechApp
                 if (Validator.isValidUsername(usernameInput))
                 {
                     SearchUserAccountByUsername(usernameInput);
+                    SetStateAfterSuccessfulSearch();
                     return;
                 }
                 else
@@ -150,13 +124,13 @@ namespace Hi_TechApp
             else if (!string.IsNullOrEmpty(userRoleInput))
             {
                 SearchUserAccountByUserRole(userRoleInput);
+                SetStateAfterListOrFailedSearch();
             }
             else
             {
                 MessageBox.Show("Please enter an information to search", "Search User Account");
             }
         }
-
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (!ValidateUserAccountInput())
@@ -166,7 +140,7 @@ namespace Hi_TechApp
             if (!string.IsNullOrEmpty(txtBoxUserId.Text.Trim()))
             {
                 int userId = Convert.ToInt32(txtBoxUserId.Text.Trim());
-                UserAccount userAccount = new UserAccount().SearchUserAccountById(userId);
+                UserAccount userAccount = new UserAccount().SearchUserAccountByUserAccountId(userId);
                 if (userAccount != null)
                 {
                     userAccount.Username = txtBoxUsername.Text.Trim();
@@ -184,9 +158,7 @@ namespace Hi_TechApp
             {
                 MessageBox.Show("User Account ID not found", "Update User Account");
             }
-
         }
-
         private void btnDeleteUserAccount_Click(object sender, EventArgs e)
         {
             UserAccount userAccount = new UserAccount();
@@ -197,18 +169,17 @@ namespace Hi_TechApp
                 MessageBox.Show("User account deleted successfully", "Delete User Account");
                 ClearAll();
             }
-
-        }
-
-        private void btnClearAll_Click(object sender, EventArgs e)
-        {
-            ClearAll();
         }
         private void btnListAllUsers_Click(object sender, EventArgs e)
         {
             List<UserAccount> userAccounts = new UserAccount().GetAllUserAccounts();
             DisplaySearchResults(userAccounts);
 
+        }
+        private void btnClearAll_Click(object sender, EventArgs e)
+        {
+            ClearAll();
+            SetInitialState();
         }
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -222,11 +193,10 @@ namespace Hi_TechApp
         #endregion
 
         #region Search
-        // Search user account by user id
         private void SearchUserAccountByUserId(string userIdInput)
         {
             int userId = Convert.ToInt32(userIdInput);
-            UserAccount userAccount = new UserAccount().SearchUserAccountById(userId);
+            UserAccount userAccount = new UserAccount().SearchUserAccountByUserAccountId(userId);
             if (userAccount != null)
             {
                 employeeId = userAccount.EmployeeID; // Update the employeeId global variable
@@ -238,7 +208,6 @@ namespace Hi_TechApp
                 MessageBox.Show("User Account ID not found", "Search User Account");
             }
         }
-        // Search user account by username
         private void SearchUserAccountByUsername(string usernameInput)
         {
             UserAccount userAccount = new UserAccount().SearchUserAccountByUsername(usernameInput);
@@ -253,7 +222,6 @@ namespace Hi_TechApp
                 MessageBox.Show("Username not found", "Search User Account");
             }
         }
-        // Search user account by UserRole
         private void SearchUserAccountByUserRole(string userRoleInput)
         {
             userRoleInput = userRoleInput.Replace(" ", "");
@@ -261,33 +229,7 @@ namespace Hi_TechApp
             List<UserAccount> userAccounts = new UserAccount().SearchUserAccountByUserRole(selectedRole);
             DisplaySearchResults(userAccounts);
         }
-        #endregion
-
-        #region Form Utilities
-        private void ClearAll()
-        {
-            txtBoxUserId.Clear();
-            txtBoxUsername.Clear();
-            cmbBoxUserRole.SelectedIndex = -1;
-            dtGridUserAccounts.DataSource = null;
-        }
-        private bool ValidateUserAccountInput()
-        {
-            if (!Validator.isValidUsername(txtBoxUsername.Text.Trim()))
-            {
-                MessageBox.Show("Invalid Username. Please enter a valid username.", "Validation Error");
-                txtBoxUsername.Focus();
-                return false;
-            }
-            return true;
-        }
-        private void UpdateUserAccountInfoUI(UserAccount userAccount)
-        {
-            txtBoxUserId.Text = userAccount.UserID.ToString();
-            txtBoxUsername.Text = userAccount.Username;
-            cmbBoxUserRole.SelectedItem = Utilities.GetEnumDescription(userAccount.UserRole);
-        }
-
+        // Display search results in the DataGridView
         private void DisplaySearchResults(List<UserAccount> userAccounts)
         {
             if (userAccounts.Any(user => user != null))
@@ -299,6 +241,104 @@ namespace Hi_TechApp
                 MessageBox.Show("No users found", "Search Result");
                 dtGridUserAccounts.DataSource = null;
             }
+        }
+        #endregion
+
+        #region Form Utilities
+        private void SetInitialState()
+        {
+            btnUpdate.Enabled = false;
+            btnDeleteUserAccount.Enabled = false;
+            btnClearAll.Enabled = false;
+            btnAddNewUserAccount.Enabled = true;
+            btnSearch.Enabled = true;
+            btnListAllUsers.Enabled = true;
+            txtBoxUsername.ReadOnly = false;
+            cmbBoxUserRole.Enabled = true;
+        }
+        private void SetStateAfterSuccessfulSearch()
+        {
+            btnUpdate.Enabled = true;
+            btnDeleteUserAccount.Enabled = true;
+            btnClearAll.Enabled = true;
+            btnAddNewUserAccount.Enabled = false;
+        }
+        private void SetStateAfterListOrFailedSearch()
+        {
+            SetInitialState();
+            btnListAllUsers.Enabled = true;
+        }
+        private void FillEmployeeInfo(int employeeId)
+        {
+            Employee employee = new Employee().SearchEmployeeById(employeeId);
+            if (employee != null)
+            {
+                txtBoxEmployeeId.Text = employee.EmployeeID.ToString();
+                txtBoxFirstName.Text = employee.FirstName;
+                txtBoxLastName.Text = employee.LastName;
+                txtBoxEmail.Text = employee.Email;
+                Position position = new Position();
+                txtBoxPosition.Text = position.GetPositionById(employee.PositionID);
+            }
+        }
+        private void FillUserAccountInfo(int employeeId)
+        {
+            UserAccount userAccount = new UserAccount().SearchUserAccountByUserAccountId(employeeId);
+            if (userAccount != null)
+            {
+                txtBoxUserId.Text = userAccount.UserID.ToString();
+                txtBoxUsername.Text = userAccount.Username;
+                PopulateUserRoleComboBox();
+                if (userAccount.UserRole != UserRole.Default)
+                {
+                    foreach (var item in cmbBoxUserRole.Items)
+                    {
+                        if (item.ToString() == Utilities.GetEnumDescription(userAccount.UserRole))
+                        {
+                            cmbBoxUserRole.SelectedItem = item;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    cmbBoxUserRole.SelectedIndex = -1;
+                }
+            }
+        }
+        private void PopulateUserRoleComboBox()
+        {
+            cmbBoxUserRole.Items.Clear();
+            foreach (UserRole role in Enum.GetValues(typeof(UserRole)))
+            {
+                cmbBoxUserRole.Items.Add(Utilities.GetEnumDescription(role));
+            }
+            cmbBoxUserRole.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbBoxUserRole.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cmbBoxUserRole.SelectedIndex = -1;
+        }
+        private void ClearAll()
+        {
+            txtBoxUserId.Clear();
+            txtBoxUsername.Clear();
+            cmbBoxUserRole.SelectedIndex = -1;
+            dtGridUserAccounts.DataSource = null;
+        }
+        private void UpdateUserAccountInfoUI(UserAccount userAccount)
+        {
+            txtBoxUserId.Text = userAccount.UserID.ToString();
+            txtBoxUsername.Text = userAccount.Username;
+            cmbBoxUserRole.SelectedItem = Utilities.GetEnumDescription(userAccount.UserRole);
+        }
+        private bool ValidateUserAccountInput()
+        {
+            if (!Validator.isValidUsername(txtBoxUsername.Text.Trim()))
+            {
+                MessageBox.Show("Invalid Username. Please enter a valid username.", "Validation Error");
+                txtBoxUsername.Focus();
+                return false;
+            }
+            return true;
         }
         #endregion
     }

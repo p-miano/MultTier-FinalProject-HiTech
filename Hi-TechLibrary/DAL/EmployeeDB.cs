@@ -10,21 +10,29 @@ namespace Hi_TechLibrary.DAL
 {
     public static class EmployeeDB
     {
-        public static void SaveRecord(Employee employee)
+        public static int SaveRecord(Employee employee)
         {
             using (SqlConnection conn = UtilityDB.GetDBConnection())
             {
-                SqlCommand cmd = new SqlCommand("INSERT INTO Employees (FirstName, LastName, Email, PhoneNumber, PositionID, StatusID) " +
-                                       "VALUES (@FirstName, @LastName, @Email, @PhoneNumber, @PositionID, @StatusID)", conn);
+                string insertQuery = "INSERT INTO Employees (FirstName, LastName, Email, PhoneNumber, PositionID, StatusID) " +
+                                     "VALUES (@FirstName, @LastName, @Email, @PhoneNumber, @PositionID, @StatusID); " +
+                                     "SELECT SCOPE_IDENTITY();"; // This line returns the last identity value
+
+                SqlCommand cmd = new SqlCommand(insertQuery, conn);
+                // Set up parameters as before
                 cmd.Parameters.AddWithValue("@FirstName", employee.FirstName);
                 cmd.Parameters.AddWithValue("@LastName", employee.LastName);
                 cmd.Parameters.AddWithValue("@Email", employee.Email);
                 cmd.Parameters.AddWithValue("@PhoneNumber", employee.PhoneNumber);
                 cmd.Parameters.AddWithValue("@PositionID", employee.PositionID);
                 cmd.Parameters.AddWithValue("@StatusID", employee.StatusID);
-                cmd.ExecuteNonQuery();
+
+                // ExecuteScalar() is used because SCOPE_IDENTITY() returns a value
+                object result = cmd.ExecuteScalar();
+                return Convert.ToInt32(result);
             }
         }
+
 
         public static List<Employee> GetAllRecords()
         {
@@ -106,7 +114,7 @@ namespace Hi_TechLibrary.DAL
             List<Employee> listEmployees = new List<Employee>();
             using (SqlConnection conn = UtilityDB.GetDBConnection())
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM Employees WHERE FirstName LIKE @SearchStr OR LastName LIKE @SearchStr OR Email LIKE @SearchStr OR PhoneNumber LIKE @SearchStr", conn);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Employees WHERE FirstName LIKE @SearchStr OR LastName LIKE @SearchStr OR PhoneNumber LIKE @SearchStr", conn);
                 cmd.Parameters.AddWithValue("@SearchStr", "%" + searchStr + "%");
                 SqlDataReader reader = cmd.ExecuteReader();
                 Employee employee;

@@ -15,33 +15,37 @@ namespace Hi_TechApp
 {
     public partial class FormEmployee : Form
     {
+        private int? employeeId;
         public FormEmployee()
         {
             InitializeComponent();
             PopulatePositionsComboBox();
+            SetInitialState();
             
+        }
+        // Overloaded constructor to receive the employeeId from the UserAccount form
+        public FormEmployee(int employeeId)
+        {
+            InitializeComponent();
+            PopulatePositionsComboBox();
+            this.employeeId = employeeId;
+            SetInitialState();
+            SearchByEmployeeId(employeeId.ToString());
         }
 
         #region Buttons
         private void btnLinkUserAccount_Click(object sender, EventArgs e)
         {
-            int employeeId = Convert.ToInt32(txtBoxEmployeeId.Text.Trim());
-            UserAccount userAccount = new UserAccount().SearchUserAccountById(employeeId);
-            if (userAccount != null)
+            UpdateEmployeeIdFromTextBox();
+
+            UserAccount userAccount = new UserAccount().SearchUserAccountByEmployeeId(employeeId.Value);
+            if (userAccount != null && userAccount.UserID > 0)
             {
-                this.Close();
-                FormUserAccount formUserAccount = new FormUserAccount(employeeId);
-                formUserAccount.ShowDialog();
+                OpenUserAccountForm(userAccount);
             }
             else
             {
-                DialogResult result = MessageBox.Show("Are you sure you want to create a user account associated with this employer?", "User Account", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
-                {
-                    this.Close();
-                    FormUserAccount formUserAccount = new FormUserAccount(employeeId);
-                    formUserAccount.ShowDialog();
-                }
+                CreateNewUserAccount();
             }
         }
         private void btnAddNewEmployee_Click(object sender, EventArgs e)
@@ -62,15 +66,16 @@ namespace Hi_TechApp
                     PhoneNumber = txtBoxPhoneNumber.Text.Trim(),
                     PositionID = selectedPositionID // Set the selected PositionID
                 };
-                employee.SaveEmployee(employee);
+                int newEmployeeId = employee.SaveEmployee(employee);
                 MessageBox.Show("Employee record saved successfully", "Save Employee");
+                this.employeeId = newEmployeeId;
+                UpdateEmployeeInfoUI(employee);
             }
             else
             {
                 MessageBox.Show("Please select a position.", "Position Required");
             }
         }
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
             // Employee search fields
@@ -144,7 +149,6 @@ namespace Hi_TechApp
                 MessageBox.Show("Please enter an information to search", "Search Employee");
             }
         }
-
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             // Validate inputs before proceeding
@@ -169,7 +173,6 @@ namespace Hi_TechApp
                 MessageBox.Show("Employee ID not found", "Update Employee");
             }
         }
-
         private void btnDeleteEmployee_Click(object sender, EventArgs e)
         {
             Employee employee = new Employee();
@@ -182,18 +185,17 @@ namespace Hi_TechApp
             }
 
         }
-
+        private void btnListAllEmployees_Click(object sender, EventArgs e)
+        {
+            ClearAll();
+            SetInitialState();
+            List<Employee> employees = new Employee().GetAllEmployees();
+            DisplaySearchResults(employees);
+        }
         private void btnClearAll_Click(object sender, EventArgs e)
         {
             ClearAll();
         }
-
-        private void btnListAllEmployees_Click(object sender, EventArgs e)
-        {
-            List<Employee> employees = new Employee().GetAllEmployees();
-            DisplaySearchResults(employees);
-        }
-
         private void btnExit_Click(object sender, EventArgs e)
         {
             // Exit the form with confirmation
@@ -205,8 +207,97 @@ namespace Hi_TechApp
         }
         #endregion
 
-        #region Form Utlities
+        #region Search
+        private void SearchByEmployeeId(string employeeIdInput)
+        {
+            int employeeId = Convert.ToInt32(employeeIdInput);
+            Employee employee = new Employee().SearchEmployeeById(employeeId);
+            if (employee != null)
+            {
+                UpdateEmployeeInfoUI(employee);
+                SetStateAfterSuccessfulSearch();
+            }
+            else
+            {
+                MessageBox.Show("Employee ID not found", "Search Employee");
+                SetStateAfterListOrFailedSearch();
+            }
+        }
+        private void SearchByEmployeeEmail(string emailInput)
+        {
+            Employee employee = new Employee().SearchEmployeeByEmail(emailInput);
+            if (employee != null)
+            {
+                UpdateEmployeeInfoUI(employee);
+                SetStateAfterSuccessfulSearch();
+            }
+            else
+            {
+                MessageBox.Show("Employee email not found", "Search Employee");
+                SetStateAfterListOrFailedSearch();
+            }
+        }
+        private void SearchByEmployeePosition(string positionInput)
+        {
+            int positionID = ((KeyValuePair<int, string>)cmbBoxPosition.SelectedItem).Key;
+            List<Employee> employees = new Employee().SearchEmployeesByPosition(positionID);
+            DisplaySearchResults(employees);
+            SetStateAfterListOrFailedSearch();
+        }
+        private void SearchByEmployeeFullName(string firstNameInput, string lastNameInput)
+        {
+            List<Employee> employees = new Employee().SearchEmployees(firstNameInput, lastNameInput);
+            DisplaySearchResults(employees);
+            SetStateAfterListOrFailedSearch();
+        }
+        // Search employee by first name, last name, phone number or position
+        private void SearchByEmployeeInput(string input)
+        {
+            List<Employee> employees = new Employee().SearchEmployees(input);
+            DisplaySearchResults(employees);
+            SetStateAfterListOrFailedSearch();
+        }
+        // Display search results in the DataGridView
+        private void DisplaySearchResults(List<Employee> employees)
+        {
+            if (employees.Any(emp => emp != null))
+            {
+                dtGridEmployees.DataSource = employees.Where(emp => emp != null).ToList();
+            }
+            else
+            {
+                MessageBox.Show("No employees found", "Search Result");
+                dtGridEmployees.DataSource = null;
+            }
+        }
+        #endregion
 
+        #region Form Utlities
+        private void SetInitialState()
+        {
+            btnUpdate.Enabled = false;
+            btnDeleteEmployee.Enabled = false;
+            btnLinkUserAccount.Enabled = false;
+            btnClearAll.Enabled = false;
+            txtBoxEmployeeId.ReadOnly = false;
+        }
+        private void SetStateAfterSuccessfulSearch()
+        {
+            btnUpdate.Enabled = true;
+            btnDeleteEmployee.Enabled = true;
+            btnLinkUserAccount.Enabled = true;
+            btnClearAll.Enabled = true;
+            btnAddNewEmployee.Enabled = false;
+            txtBoxEmployeeId.ReadOnly = true;
+        }
+        private void SetStateAfterListOrFailedSearch()
+        {
+            btnUpdate.Enabled = false;
+            btnDeleteEmployee.Enabled = false;
+            btnLinkUserAccount.Enabled = false;
+            btnClearAll.Enabled = true;
+            btnAddNewEmployee.Enabled = false;
+        }
         private void PopulatePositionsComboBox()
         {
             // Clear existing items to avoid duplication
@@ -230,16 +321,6 @@ namespace Hi_TechApp
             // Set the SelectedIndex to -1 to show the ComboBox as empty
             cmbBoxPosition.SelectedIndex = -1;
         }
-        private void UpdateEmployeeInfoUI(Employee employee)
-        {
-            ClearAll();
-            txtBoxEmployeeId.Text = employee.EmployeeID.ToString();
-            txtBoxFirstName.Text = employee.FirstName;
-            txtBoxLastName.Text = employee.LastName;
-            txtBoxEmail.Text = employee.Email;
-            txtBoxPhoneNumber.Text = employee.PhoneNumber;
-            cmbBoxPosition.SelectedValue = employee.PositionID;
-        }
         private void ClearAll()
         {
             txtBoxEmployeeId.Clear();
@@ -249,6 +330,28 @@ namespace Hi_TechApp
             txtBoxPhoneNumber.Clear();
             cmbBoxPosition.SelectedIndex = -1;
             dtGridEmployees.DataSource = null;
+            SetInitialState();
+        }
+        private void UpdateEmployeeIdFromTextBox()
+        {
+            if (int.TryParse(txtBoxEmployeeId.Text.Trim(), out int parsedId))
+            {
+                employeeId = parsedId;
+            }
+            else
+            {
+                employeeId = null; // Reset to null if parsing fails
+            }
+        }
+        private void UpdateEmployeeInfoUI(Employee employee)
+        {
+            ClearAll();
+            txtBoxEmployeeId.Text = employee.EmployeeID.ToString();
+            txtBoxFirstName.Text = employee.FirstName;
+            txtBoxLastName.Text = employee.LastName;
+            txtBoxEmail.Text = employee.Email;
+            txtBoxPhoneNumber.Text = employee.PhoneNumber;
+            cmbBoxPosition.SelectedValue = employee.PositionID;
         }
         private bool ValidateEmployeeInput()
         {
@@ -272,70 +375,24 @@ namespace Hi_TechApp
                 MessageBox.Show("Invalid email address.", "Input Error");
                 txtBoxEmail.Focus();
                 return false;
-            }            
+            }
             // All validations passed
             return true;
         }
-        #endregion
-
-        #region Search
-        // Search employee by id
-        private void SearchByEmployeeId(string employeeIdInput)
+        private void OpenUserAccountForm(UserAccount userAccount)
         {
-            int employeeId = Convert.ToInt32(employeeIdInput);
-            Employee employee = new Employee().SearchEmployeeById(employeeId);
-            if (employee != null)
-            {
-                UpdateEmployeeInfoUI(employee);
-            }
-            else
-            {
-                MessageBox.Show("Employee ID not found", "Search Employee");
-            }
+            this.Close();
+            FormUserAccount formUserAccount = new FormUserAccount(employeeId.Value);
+            formUserAccount.ShowDialog();
         }
-        // Search employee by email
-        private void SearchByEmployeeEmail(string emailInput)
+        private void CreateNewUserAccount()
         {
-            Employee employee = new Employee().SearchEmployeeByEmail(emailInput);
-            if (employee != null)
+            DialogResult result = MessageBox.Show("No User Account found for this employee. Do you want to create one?", "User Account", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
             {
-                UpdateEmployeeInfoUI(employee);
-            }
-            else
-            {
-                MessageBox.Show("Employee email not found", "Search Employee");
-            }
-        }
-        // Search by employee position
-        private void SearchByEmployeePosition(string positionInput)
-        {
-            int positionID = ((KeyValuePair<int, string>)cmbBoxPosition.SelectedItem).Key;
-            List<Employee> employees = new Employee().SearchEmployeesByPosition(positionID);
-            DisplaySearchResults(employees);
-        }
-        // Search employee by full name
-        private void SearchByEmployeeFullName(string firstNameInput, string lastNameInput)
-        {
-            List<Employee> employees = new Employee().SearchEmployees(firstNameInput, lastNameInput);
-            DisplaySearchResults(employees);
-        }
-        // Search employee by first name, last name, phone number or position
-        private void SearchByEmployeeInput(string input)
-        {
-            List<Employee> employees = new Employee().SearchEmployees(input);
-            DisplaySearchResults(employees);
-        }
-        // Display search results in the DataGridView
-        private void DisplaySearchResults(List<Employee> employees)
-        {
-            if (employees.Any(emp => emp != null))
-            {
-                dtGridEmployees.DataSource = employees.Where(emp => emp != null).ToList();
-            }
-            else
-            {
-                MessageBox.Show("No employees found", "Search Result");
-                dtGridEmployees.DataSource = null;
+                this.Close();
+                FormUserAccount formUserAccount = new FormUserAccount(employeeId.Value);
+                formUserAccount.ShowDialog();
             }
         }
         #endregion

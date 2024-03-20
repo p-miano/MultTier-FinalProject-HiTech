@@ -61,7 +61,40 @@ namespace Hi_TechLibrary.DAL
             return listUsers;
         }
 
-        public static UserAccount SearchById(int id)
+        public static UserAccount SearchByEmployeeId(int id)
+        {
+            UserAccount user = new UserAccount();
+            using (SqlConnection conn = UtilityDB.GetDBConnection())
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM UserAccounts WHERE EmployeeID = @ID", conn);
+                cmd.Parameters.AddWithValue("@ID", id);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    user.UserID = Convert.ToInt32(reader["UserID"]);
+                    user.EmployeeID = Convert.ToInt32(reader["EmployeeID"]);
+                    user.Username = reader["Username"].ToString();
+                    user.Password = reader["Password"].ToString();
+                    // Convert the UserRole from string to UserRole enum
+                    string roleString = reader["UserRole"].ToString();
+                    if (Enum.TryParse<UserRole>(roleString, out UserRole role))
+                    {
+                        user.UserRole = role;
+                    }
+                    else
+                    {
+                        user.UserRole = UserRole.Default;
+                    }
+                    user.DateCreated = Convert.ToDateTime(reader["DateCreated"]);
+                    user.DateModified = reader["DateModified"] as DateTime?;
+                    user.StatusID = Convert.ToInt32(reader["StatusID"]);
+                    user.MustChangePassword = Convert.ToBoolean(reader["MustChangePassword"]);
+                }
+            }
+            return user;
+        }
+
+        public static UserAccount SearchByUserAccountId(int id)
         {
             UserAccount user = new UserAccount();
             using (SqlConnection conn = UtilityDB.GetDBConnection())

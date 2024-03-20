@@ -68,11 +68,15 @@ namespace Hi_TechLibrary.BLL
         {
             return UserAccountDB.GetAllRecords();
         }
-
-        // Method to search for a user by UserID
-        public UserAccount SearchUserAccountById(int id)
+        // Method to search for a user account by UserAccountID
+        public UserAccount SearchUserAccountByEmployeeId(int id)
         {
-            return UserAccountDB.SearchById(id);
+            return UserAccountDB.SearchByEmployeeId(id);
+        }
+        // Method to search for a user account by UserAccountID
+        public UserAccount SearchUserAccountByUserAccountId(int id)
+        {
+            return UserAccountDB.SearchByUserAccountId(id);
         }
 
         // Method to search for a user by Username

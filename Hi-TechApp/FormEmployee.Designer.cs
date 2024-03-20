@@ -32,6 +32,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnLinkUserAccount = new System.Windows.Forms.Button();
             this.lblEmployeeId = new System.Windows.Forms.Label();
             this.txtBoxEmployeeId = new System.Windows.Forms.TextBox();
             this.lblPhoneNumber = new System.Windows.Forms.Label();
@@ -44,8 +45,7 @@
             this.cmbBoxPosition = new System.Windows.Forms.ComboBox();
             this.lblPosition = new System.Windows.Forms.Label();
             this.txtBoxPhoneNumber = new System.Windows.Forms.MaskedTextBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.btnLinkUserAccount = new System.Windows.Forms.Button();
+            this.panelButtons1 = new System.Windows.Forms.Panel();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -54,6 +54,8 @@
             this.dtGridEmployees = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnListAllEmployees = new System.Windows.Forms.Button();
+            this.tbLayoutButtons1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnExit = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -61,9 +63,11 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.panelButtons1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGridEmployees)).BeginInit();
             this.panel3.SuspendLayout();
+            this.tbLayoutButtons1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -95,7 +99,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainer1.Panel1.Controls.Add(this.panel2);
+            this.splitContainer1.Panel1.Controls.Add(this.panelButtons1);
             // 
             // splitContainer1.Panel2
             // 
@@ -114,6 +118,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.Controls.Add(this.btnLinkUserAccount, 4, 3);
             this.tableLayoutPanel1.Controls.Add(this.lblEmployeeId, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.txtBoxEmployeeId, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblPhoneNumber, 3, 2);
@@ -136,6 +141,19 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(788, 327);
             this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // btnLinkUserAccount
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.btnLinkUserAccount, 2);
+            this.btnLinkUserAccount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnLinkUserAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLinkUserAccount.Location = new System.Drawing.Point(527, 198);
+            this.btnLinkUserAccount.Name = "btnLinkUserAccount";
+            this.btnLinkUserAccount.Size = new System.Drawing.Size(258, 59);
+            this.btnLinkUserAccount.TabIndex = 11;
+            this.btnLinkUserAccount.Text = "Create or view user account";
+            this.btnLinkUserAccount.UseVisualStyleBackColor = true;
+            this.btnLinkUserAccount.Click += new System.EventHandler(this.btnLinkUserAccount_Click);
             // 
             // lblEmployeeId
             // 
@@ -174,7 +192,7 @@
             this.txtBoxEmail.Location = new System.Drawing.Point(134, 133);
             this.txtBoxEmail.Name = "txtBoxEmail";
             this.txtBoxEmail.Size = new System.Drawing.Size(256, 26);
-            this.txtBoxEmail.TabIndex = 4;
+            this.txtBoxEmail.TabIndex = 5;
             // 
             // lblEmail
             // 
@@ -194,7 +212,7 @@
             this.txtBoxLastName.Location = new System.Drawing.Point(527, 68);
             this.txtBoxLastName.Name = "txtBoxLastName";
             this.txtBoxLastName.Size = new System.Drawing.Size(258, 26);
-            this.txtBoxLastName.TabIndex = 3;
+            this.txtBoxLastName.TabIndex = 4;
             // 
             // lblLastName
             // 
@@ -214,7 +232,7 @@
             this.txtBoxFirstName.Location = new System.Drawing.Point(134, 68);
             this.txtBoxFirstName.Name = "txtBoxFirstName";
             this.txtBoxFirstName.Size = new System.Drawing.Size(256, 26);
-            this.txtBoxFirstName.TabIndex = 2;
+            this.txtBoxFirstName.TabIndex = 3;
             // 
             // lblFirstName
             // 
@@ -235,7 +253,7 @@
             this.cmbBoxPosition.Location = new System.Drawing.Point(527, 3);
             this.cmbBoxPosition.Name = "cmbBoxPosition";
             this.cmbBoxPosition.Size = new System.Drawing.Size(258, 28);
-            this.cmbBoxPosition.TabIndex = 6;
+            this.cmbBoxPosition.TabIndex = 2;
             // 
             // lblPosition
             // 
@@ -256,84 +274,73 @@
             this.txtBoxPhoneNumber.Mask = "(999) 000-0000";
             this.txtBoxPhoneNumber.Name = "txtBoxPhoneNumber";
             this.txtBoxPhoneNumber.Size = new System.Drawing.Size(258, 26);
-            this.txtBoxPhoneNumber.TabIndex = 16;
+            this.txtBoxPhoneNumber.TabIndex = 6;
             // 
-            // panel2
+            // panelButtons1
             // 
-            this.panel2.Controls.Add(this.btnLinkUserAccount);
-            this.panel2.Controls.Add(this.btnClearAll);
-            this.panel2.Controls.Add(this.btnUpdate);
-            this.panel2.Controls.Add(this.btnSearch);
-            this.panel2.Controls.Add(this.btnDeleteEmployee);
-            this.panel2.Controls.Add(this.btnAddNewEmployee);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(808, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(200, 336);
-            this.panel2.TabIndex = 0;
-            // 
-            // btnLinkUserAccount
-            // 
-            this.btnLinkUserAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLinkUserAccount.Location = new System.Drawing.Point(17, 208);
-            this.btnLinkUserAccount.Name = "btnLinkUserAccount";
-            this.btnLinkUserAccount.Size = new System.Drawing.Size(167, 63);
-            this.btnLinkUserAccount.TabIndex = 31;
-            this.btnLinkUserAccount.Text = "Create or view user account";
-            this.btnLinkUserAccount.UseVisualStyleBackColor = true;
-            this.btnLinkUserAccount.Click += new System.EventHandler(this.btnLinkUserAccount_Click);
+            this.panelButtons1.Controls.Add(this.tbLayoutButtons1);
+            this.panelButtons1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelButtons1.Location = new System.Drawing.Point(808, 0);
+            this.panelButtons1.Name = "panelButtons1";
+            this.panelButtons1.Size = new System.Drawing.Size(200, 336);
+            this.panelButtons1.TabIndex = 0;
             // 
             // btnClearAll
             // 
+            this.btnClearAll.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnClearAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearAll.Location = new System.Drawing.Point(12, 302);
+            this.btnClearAll.Location = new System.Drawing.Point(6, 206);
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(167, 31);
-            this.btnClearAll.TabIndex = 30;
+            this.btnClearAll.Size = new System.Drawing.Size(188, 34);
+            this.btnClearAll.TabIndex = 13;
             this.btnClearAll.Text = "Clear All";
             this.btnClearAll.UseVisualStyleBackColor = true;
             this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
             // 
             // btnUpdate
             // 
+            this.btnUpdate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate.Location = new System.Drawing.Point(17, 83);
+            this.btnUpdate.Location = new System.Drawing.Point(6, 88);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(167, 31);
-            this.btnUpdate.TabIndex = 29;
+            this.btnUpdate.Size = new System.Drawing.Size(188, 35);
+            this.btnUpdate.TabIndex = 9;
             this.btnUpdate.Text = "&Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnSearch
             // 
+            this.btnSearch.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(21, 44);
+            this.btnSearch.Location = new System.Drawing.Point(6, 47);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(167, 31);
-            this.btnSearch.TabIndex = 28;
+            this.btnSearch.Size = new System.Drawing.Size(188, 35);
+            this.btnSearch.TabIndex = 8;
             this.btnSearch.Text = "&Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnDeleteEmployee
             // 
+            this.btnDeleteEmployee.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnDeleteEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteEmployee.Location = new System.Drawing.Point(17, 120);
+            this.btnDeleteEmployee.Location = new System.Drawing.Point(6, 129);
             this.btnDeleteEmployee.Name = "btnDeleteEmployee";
-            this.btnDeleteEmployee.Size = new System.Drawing.Size(167, 31);
-            this.btnDeleteEmployee.TabIndex = 19;
+            this.btnDeleteEmployee.Size = new System.Drawing.Size(188, 35);
+            this.btnDeleteEmployee.TabIndex = 10;
             this.btnDeleteEmployee.Text = "&Delete";
             this.btnDeleteEmployee.UseVisualStyleBackColor = true;
             this.btnDeleteEmployee.Click += new System.EventHandler(this.btnDeleteEmployee_Click);
             // 
             // btnAddNewEmployee
             // 
+            this.btnAddNewEmployee.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAddNewEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddNewEmployee.Location = new System.Drawing.Point(17, 7);
+            this.btnAddNewEmployee.Location = new System.Drawing.Point(6, 6);
             this.btnAddNewEmployee.Name = "btnAddNewEmployee";
-            this.btnAddNewEmployee.Size = new System.Drawing.Size(167, 31);
-            this.btnAddNewEmployee.TabIndex = 12;
+            this.btnAddNewEmployee.Size = new System.Drawing.Size(188, 35);
+            this.btnAddNewEmployee.TabIndex = 7;
             this.btnAddNewEmployee.Text = "&Add New";
             this.btnAddNewEmployee.UseVisualStyleBackColor = true;
             this.btnAddNewEmployee.Click += new System.EventHandler(this.btnAddNewEmployee_Click);
@@ -346,11 +353,11 @@
             this.dtGridEmployees.Name = "dtGridEmployees";
             this.dtGridEmployees.Size = new System.Drawing.Size(808, 289);
             this.dtGridEmployees.TabIndex = 30;
+            this.dtGridEmployees.TabStop = false;
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.btnListAllEmployees);
-            this.panel3.Controls.Add(this.btnExit);
+            this.panel3.Controls.Add(this.tableLayoutPanel2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel3.Location = new System.Drawing.Point(808, 0);
             this.panel3.Name = "panel3";
@@ -359,22 +366,72 @@
             // 
             // btnListAllEmployees
             // 
+            this.btnListAllEmployees.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnListAllEmployees.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnListAllEmployees.Location = new System.Drawing.Point(12, 19);
+            this.btnListAllEmployees.Location = new System.Drawing.Point(6, 6);
             this.btnListAllEmployees.Name = "btnListAllEmployees";
-            this.btnListAllEmployees.Size = new System.Drawing.Size(167, 31);
-            this.btnListAllEmployees.TabIndex = 33;
+            this.btnListAllEmployees.Size = new System.Drawing.Size(188, 34);
+            this.btnListAllEmployees.TabIndex = 12;
             this.btnListAllEmployees.Text = "List all employees";
             this.btnListAllEmployees.UseVisualStyleBackColor = true;
             this.btnListAllEmployees.Click += new System.EventHandler(this.btnListAllEmployees_Click);
             // 
+            // tbLayoutButtons1
+            // 
+            this.tbLayoutButtons1.ColumnCount = 1;
+            this.tbLayoutButtons1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbLayoutButtons1.Controls.Add(this.btnUpdate, 0, 2);
+            this.tbLayoutButtons1.Controls.Add(this.btnSearch, 0, 1);
+            this.tbLayoutButtons1.Controls.Add(this.btnDeleteEmployee, 0, 3);
+            this.tbLayoutButtons1.Controls.Add(this.btnAddNewEmployee, 0, 0);
+            this.tbLayoutButtons1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbLayoutButtons1.Location = new System.Drawing.Point(0, 0);
+            this.tbLayoutButtons1.Margin = new System.Windows.Forms.Padding(5);
+            this.tbLayoutButtons1.Name = "tbLayoutButtons1";
+            this.tbLayoutButtons1.Padding = new System.Windows.Forms.Padding(3);
+            this.tbLayoutButtons1.RowCount = 8;
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.Size = new System.Drawing.Size(200, 336);
+            this.tbLayoutButtons1.TabIndex = 0;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.btnClearAll, 0, 5);
+            this.tableLayoutPanel2.Controls.Add(this.btnExit, 0, 6);
+            this.tableLayoutPanel2.Controls.Add(this.btnListAllEmployees, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(5);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.Padding = new System.Windows.Forms.Padding(3);
+            this.tableLayoutPanel2.RowCount = 7;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(200, 289);
+            this.tableLayoutPanel2.TabIndex = 1;
+            // 
             // btnExit
             // 
+            this.btnExit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(12, 222);
+            this.btnExit.Location = new System.Drawing.Point(6, 246);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(167, 31);
-            this.btnExit.TabIndex = 32;
+            this.btnExit.Size = new System.Drawing.Size(188, 37);
+            this.btnExit.TabIndex = 14;
             this.btnExit.Text = "E&xit";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
@@ -397,9 +454,11 @@
             this.splitContainer1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
+            this.panelButtons1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtGridEmployees)).EndInit();
             this.panel3.ResumeLayout(false);
+            this.tbLayoutButtons1.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -408,7 +467,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelButtons1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.DataGridView dtGridEmployees;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -424,7 +483,6 @@
         private System.Windows.Forms.TextBox txtBoxEmail;
         private System.Windows.Forms.Label lblPosition;
         private System.Windows.Forms.Label lblPhoneNumber;
-        private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnListAllEmployees;
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.Button btnUpdate;
@@ -432,5 +490,8 @@
         private System.Windows.Forms.Label lblEmployeeId;
         private System.Windows.Forms.MaskedTextBox txtBoxPhoneNumber;
         private System.Windows.Forms.Button btnLinkUserAccount;
+        private System.Windows.Forms.TableLayoutPanel tbLayoutButtons1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Button btnExit;
     }
 }
