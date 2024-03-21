@@ -27,7 +27,7 @@ namespace Hi_TechApp
             this.employeeId = employeeId;
             InitializeComponent();
             FillEmployeeInfo(employeeId);
-            FillUserAccountInfo(employeeId);
+            FillUserAccountInfoUsingEmployeeId(employeeId);
             SetStateAfterSuccessfulSearch();
         }
 
@@ -253,6 +253,11 @@ namespace Hi_TechApp
             btnAddNewUserAccount.Enabled = true;
             btnSearch.Enabled = true;
             btnListAllUsers.Enabled = true;
+            txtBoxEmployeeId.ReadOnly = true;
+            txtBoxFirstName.ReadOnly = true;
+            txtBoxLastName.ReadOnly = true;
+            txtBoxEmail.ReadOnly = true;
+            txtBoxPosition.ReadOnly = true;
             txtBoxUsername.ReadOnly = false;
             cmbBoxUserRole.Enabled = true;
         }
@@ -281,29 +286,29 @@ namespace Hi_TechApp
                 txtBoxPosition.Text = position.GetPositionById(employee.PositionID);
             }
         }
-        private void FillUserAccountInfo(int employeeId)
+        private void FillUserAccountInfoUsingEmployeeId(int employeeId)
         {
-            UserAccount userAccount = new UserAccount().SearchUserAccountByUserAccountId(employeeId);
+            UserAccount userAccount = new UserAccount().SearchUserAccountByEmployeeId(employeeId);
             if (userAccount != null)
             {
                 txtBoxUserId.Text = userAccount.UserID.ToString();
                 txtBoxUsername.Text = userAccount.Username;
                 PopulateUserRoleComboBox();
-                if (userAccount.UserRole != UserRole.Default)
+                foreach (var item in cmbBoxUserRole.Items)
                 {
-                    foreach (var item in cmbBoxUserRole.Items)
+                    // Assuming Utilities.GetEnumDescription correctly returns a string that matches the combo box items
+                    if (item.ToString() == Utilities.GetEnumDescription(userAccount.UserRole))
                     {
-                        if (item.ToString() == Utilities.GetEnumDescription(userAccount.UserRole))
-                        {
-                            cmbBoxUserRole.SelectedItem = item;
-                            break;
-                        }
+                        cmbBoxUserRole.SelectedItem = item;
+                        break;
                     }
                 }
-                else
-                {
-                    cmbBoxUserRole.SelectedIndex = -1;
-                }
+            }
+            else
+            {
+                txtBoxUserId.Clear();
+                txtBoxUsername.Clear();
+                cmbBoxUserRole.SelectedIndex = -1;
             }
         }
         private void PopulateUserRoleComboBox()

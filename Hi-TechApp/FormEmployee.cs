@@ -381,9 +381,9 @@ namespace Hi_TechApp
         }
         private void OpenUserAccountForm(UserAccount userAccount)
         {
-            this.Close();
             FormUserAccount formUserAccount = new FormUserAccount(employeeId.Value);
             formUserAccount.ShowDialog();
+            this.Close();
         }
         private void CreateNewUserAccount()
         {
