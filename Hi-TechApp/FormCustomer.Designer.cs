@@ -32,16 +32,15 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.cmbBoxPosition = new System.Windows.Forms.ComboBox();
+            this.cmbBoxStatus = new System.Windows.Forms.ComboBox();
             this.lblCreditLimit = new System.Windows.Forms.Label();
             this.txtBoxFaxNumber = new System.Windows.Forms.MaskedTextBox();
             this.txtBoxPhoneNumber = new System.Windows.Forms.MaskedTextBox();
             this.lblCustomerId = new System.Windows.Forms.Label();
             this.txtBoxName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
-            this.txtBoxCustomerId = new System.Windows.Forms.TextBox();
             this.lblStreet = new System.Windows.Forms.Label();
-            this.txtStreet = new System.Windows.Forms.TextBox();
+            this.txtBoxStreet = new System.Windows.Forms.TextBox();
             this.lblCity = new System.Windows.Forms.Label();
             this.txtBoxCity = new System.Windows.Forms.TextBox();
             this.lblStreetNumber = new System.Windows.Forms.Label();
@@ -62,6 +61,8 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.btnListAll = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
+            this.btnUpdateDatabase = new System.Windows.Forms.Button();
+            this.txtBoxCustomerId = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -122,16 +123,15 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.Controls.Add(this.cmbBoxPosition, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.cmbBoxStatus, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblCreditLimit, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.txtBoxFaxNumber, 4, 4);
             this.tableLayoutPanel1.Controls.Add(this.txtBoxPhoneNumber, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.lblCustomerId, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.txtBoxName, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.lblName, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.txtBoxCustomerId, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblStreet, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.txtStreet, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtBoxStreet, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.lblCity, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.txtBoxCity, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.lblStreetNumber, 4, 2);
@@ -142,6 +142,7 @@
             this.tableLayoutPanel1.Controls.Add(this.lblFaxNumber, 3, 4);
             this.tableLayoutPanel1.Controls.Add(this.txtBoxCreditLimit, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.lblStatus, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txtBoxCustomerId, 1, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 6);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
@@ -155,16 +156,16 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(775, 305);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
-            // cmbBoxPosition
+            // cmbBoxStatus
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.cmbBoxPosition, 2);
-            this.cmbBoxPosition.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmbBoxPosition.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbBoxPosition.FormattingEnabled = true;
-            this.cmbBoxPosition.Location = new System.Drawing.Point(519, 3);
-            this.cmbBoxPosition.Name = "cmbBoxPosition";
-            this.cmbBoxPosition.Size = new System.Drawing.Size(253, 28);
-            this.cmbBoxPosition.TabIndex = 45;
+            this.tableLayoutPanel1.SetColumnSpan(this.cmbBoxStatus, 2);
+            this.cmbBoxStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbBoxStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbBoxStatus.FormattingEnabled = true;
+            this.cmbBoxStatus.Location = new System.Drawing.Point(519, 3);
+            this.cmbBoxStatus.Name = "cmbBoxStatus";
+            this.cmbBoxStatus.Size = new System.Drawing.Size(253, 28);
+            this.cmbBoxStatus.TabIndex = 45;
             // 
             // lblCreditLimit
             // 
@@ -228,14 +229,6 @@
             this.lblName.TabIndex = 16;
             this.lblName.Text = "Name:";
             // 
-            // txtBoxCustomerId
-            // 
-            this.txtBoxCustomerId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxCustomerId.Location = new System.Drawing.Point(132, 3);
-            this.txtBoxCustomerId.Name = "txtBoxCustomerId";
-            this.txtBoxCustomerId.Size = new System.Drawing.Size(123, 26);
-            this.txtBoxCustomerId.TabIndex = 18;
-            // 
             // lblStreet
             // 
             this.lblStreet.AutoSize = true;
@@ -246,15 +239,15 @@
             this.lblStreet.TabIndex = 20;
             this.lblStreet.Text = "Street:";
             // 
-            // txtStreet
+            // txtBoxStreet
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.txtStreet, 3);
-            this.txtStreet.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtStreet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStreet.Location = new System.Drawing.Point(132, 103);
-            this.txtStreet.Name = "txtStreet";
-            this.txtStreet.Size = new System.Drawing.Size(381, 26);
-            this.txtStreet.TabIndex = 21;
+            this.tableLayoutPanel1.SetColumnSpan(this.txtBoxStreet, 3);
+            this.txtBoxStreet.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtBoxStreet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxStreet.Location = new System.Drawing.Point(132, 103);
+            this.txtBoxStreet.Name = "txtBoxStreet";
+            this.txtBoxStreet.Size = new System.Drawing.Size(381, 26);
+            this.txtBoxStreet.TabIndex = 21;
             // 
             // lblCity
             // 
@@ -362,6 +355,7 @@
             this.tbLayoutButtons1.Controls.Add(this.btnSearch, 0, 1);
             this.tbLayoutButtons1.Controls.Add(this.btnDelete, 0, 3);
             this.tbLayoutButtons1.Controls.Add(this.btnAddNew, 0, 0);
+            this.tbLayoutButtons1.Controls.Add(this.btnUpdateDatabase, 0, 5);
             this.tbLayoutButtons1.Dock = System.Windows.Forms.DockStyle.Right;
             this.tbLayoutButtons1.Location = new System.Drawing.Point(808, 0);
             this.tbLayoutButtons1.Margin = new System.Windows.Forms.Padding(5);
@@ -389,6 +383,7 @@
             this.btnUpdate.TabIndex = 34;
             this.btnUpdate.Text = "&Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnSearch
             // 
@@ -400,6 +395,7 @@
             this.btnSearch.TabIndex = 33;
             this.btnSearch.Text = "&Search";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnDelete
             // 
@@ -411,6 +407,7 @@
             this.btnDelete.TabIndex = 32;
             this.btnDelete.Text = "&Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnAddNew
             // 
@@ -422,6 +419,7 @@
             this.btnAddNew.TabIndex = 31;
             this.btnAddNew.Text = "&Add New";
             this.btnAddNew.UseVisualStyleBackColor = true;
+            this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
             // 
             // dtGridCustomers
             // 
@@ -465,6 +463,7 @@
             this.btnExit.TabIndex = 33;
             this.btnExit.Text = "E&xit";
             this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // btnListAll
             // 
@@ -488,6 +487,28 @@
             this.btnClearAll.TabIndex = 35;
             this.btnClearAll.Text = "Clear All";
             this.btnClearAll.UseVisualStyleBackColor = true;
+            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
+            // 
+            // btnUpdateDatabase
+            // 
+            this.btnUpdateDatabase.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnUpdateDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdateDatabase.Location = new System.Drawing.Point(6, 211);
+            this.btnUpdateDatabase.Name = "btnUpdateDatabase";
+            this.btnUpdateDatabase.Size = new System.Drawing.Size(188, 35);
+            this.btnUpdateDatabase.TabIndex = 35;
+            this.btnUpdateDatabase.Text = "Update Database";
+            this.btnUpdateDatabase.UseVisualStyleBackColor = true;
+            this.btnUpdateDatabase.Click += new System.EventHandler(this.btnUpdateDatabase_Click);
+            // 
+            // txtBoxCustomerId
+            // 
+            this.txtBoxCustomerId.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtBoxCustomerId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxCustomerId.Location = new System.Drawing.Point(132, 3);
+            this.txtBoxCustomerId.Name = "txtBoxCustomerId";
+            this.txtBoxCustomerId.Size = new System.Drawing.Size(123, 26);
+            this.txtBoxCustomerId.TabIndex = 46;
             // 
             // FormCustomer
             // 
@@ -497,7 +518,9 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.Name = "FormCustomer";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormCustomer";
+            this.Load += new System.EventHandler(this.FormCustomer_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -532,9 +555,8 @@
         private System.Windows.Forms.Label lblCustomerId;
         private System.Windows.Forms.TextBox txtBoxName;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.TextBox txtBoxCustomerId;
         private System.Windows.Forms.Label lblStreet;
-        private System.Windows.Forms.TextBox txtStreet;
+        private System.Windows.Forms.TextBox txtBoxStreet;
         private System.Windows.Forms.Label lblCity;
         private System.Windows.Forms.TextBox txtBoxCity;
         private System.Windows.Forms.Label lblStreetNumber;
@@ -548,6 +570,8 @@
         private System.Windows.Forms.Label lblFaxNumber;
         private System.Windows.Forms.TextBox txtBoxCreditLimit;
         private System.Windows.Forms.Label lblStatus;
-        private System.Windows.Forms.ComboBox cmbBoxPosition;
+        private System.Windows.Forms.ComboBox cmbBoxStatus;
+        private System.Windows.Forms.Button btnUpdateDatabase;
+        private System.Windows.Forms.TextBox txtBoxCustomerId;
     }
 }

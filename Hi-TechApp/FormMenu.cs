@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Hi_TechLibrary.BLL;
+using Hi_TechLibrary.DAL;
 
 namespace Hi_TechApp
 {
