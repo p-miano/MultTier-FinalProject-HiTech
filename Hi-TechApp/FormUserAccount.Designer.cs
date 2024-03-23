@@ -32,6 +32,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnLinkEmployee = new System.Windows.Forms.Button();
             this.lblEmployeeId = new System.Windows.Forms.Label();
             this.txtBoxFirstName = new System.Windows.Forms.TextBox();
             this.lblFirstName = new System.Windows.Forms.Label();
@@ -49,18 +50,17 @@
             this.lblUserRole = new System.Windows.Forms.Label();
             this.cmbBoxUserRole = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnClearAll = new System.Windows.Forms.Button();
+            this.tbLayoutButtons1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnDeleteUserAccount = new System.Windows.Forms.Button();
             this.btnAddNewUserAccount = new System.Windows.Forms.Button();
             this.dtGridUserAccounts = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnListAllUsers = new System.Windows.Forms.Button();
-            this.btnLinkEmployee = new System.Windows.Forms.Button();
-            this.tbLayoutButtons1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnClearAll = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -68,9 +68,9 @@
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tbLayoutButtons1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGridUserAccounts)).BeginInit();
             this.panel3.SuspendLayout();
-            this.tbLayoutButtons1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -140,7 +140,7 @@
             this.tableLayoutPanel1.Controls.Add(this.txtBoxUsername, 4, 1);
             this.tableLayoutPanel1.Controls.Add(this.lblUserRole, 3, 2);
             this.tableLayoutPanel1.Controls.Add(this.cmbBoxUserRole, 4, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 19);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 6);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
@@ -152,6 +152,18 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(775, 305);
             this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // btnLinkEmployee
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.btnLinkEmployee, 2);
+            this.btnLinkEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLinkEmployee.Location = new System.Drawing.Point(519, 253);
+            this.btnLinkEmployee.Name = "btnLinkEmployee";
+            this.btnLinkEmployee.Size = new System.Drawing.Size(252, 49);
+            this.btnLinkEmployee.TabIndex = 34;
+            this.btnLinkEmployee.Text = "Update employee information";
+            this.btnLinkEmployee.UseVisualStyleBackColor = true;
+            this.btnLinkEmployee.Click += new System.EventHandler(this.btnLinkEmployee_Click);
             // 
             // lblEmployeeId
             // 
@@ -313,17 +325,30 @@
             this.panel2.Size = new System.Drawing.Size(200, 336);
             this.panel2.TabIndex = 0;
             // 
-            // btnClearAll
+            // tbLayoutButtons1
             // 
-            this.btnClearAll.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnClearAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearAll.Location = new System.Drawing.Point(6, 206);
-            this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(188, 34);
-            this.btnClearAll.TabIndex = 35;
-            this.btnClearAll.Text = "Clear All";
-            this.btnClearAll.UseVisualStyleBackColor = true;
-            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
+            this.tbLayoutButtons1.ColumnCount = 1;
+            this.tbLayoutButtons1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbLayoutButtons1.Controls.Add(this.btnUpdate, 0, 2);
+            this.tbLayoutButtons1.Controls.Add(this.btnSearch, 0, 1);
+            this.tbLayoutButtons1.Controls.Add(this.btnDeleteUserAccount, 0, 3);
+            this.tbLayoutButtons1.Controls.Add(this.btnAddNewUserAccount, 0, 0);
+            this.tbLayoutButtons1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbLayoutButtons1.Location = new System.Drawing.Point(0, 0);
+            this.tbLayoutButtons1.Margin = new System.Windows.Forms.Padding(5);
+            this.tbLayoutButtons1.Name = "tbLayoutButtons1";
+            this.tbLayoutButtons1.Padding = new System.Windows.Forms.Padding(3);
+            this.tbLayoutButtons1.RowCount = 8;
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.Size = new System.Drawing.Size(200, 336);
+            this.tbLayoutButtons1.TabIndex = 1;
             // 
             // btnUpdate
             // 
@@ -391,6 +416,29 @@
             this.panel3.Size = new System.Drawing.Size(200, 289);
             this.panel3.TabIndex = 1;
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.btnExit, 0, 6);
+            this.tableLayoutPanel2.Controls.Add(this.btnListAllUsers, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnClearAll, 0, 5);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(5);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.Padding = new System.Windows.Forms.Padding(3);
+            this.tableLayoutPanel2.RowCount = 7;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(200, 289);
+            this.tableLayoutPanel2.TabIndex = 2;
+            // 
             // btnExit
             // 
             this.btnExit.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -415,65 +463,17 @@
             this.btnListAllUsers.UseVisualStyleBackColor = true;
             this.btnListAllUsers.Click += new System.EventHandler(this.btnListAllUsers_Click);
             // 
-            // btnLinkEmployee
+            // btnClearAll
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.btnLinkEmployee, 2);
-            this.btnLinkEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLinkEmployee.Location = new System.Drawing.Point(519, 253);
-            this.btnLinkEmployee.Name = "btnLinkEmployee";
-            this.btnLinkEmployee.Size = new System.Drawing.Size(252, 49);
-            this.btnLinkEmployee.TabIndex = 34;
-            this.btnLinkEmployee.Text = "Update employee information";
-            this.btnLinkEmployee.UseVisualStyleBackColor = true;
-            this.btnLinkEmployee.Click += new System.EventHandler(this.btnLinkEmployee_Click);
-            // 
-            // tbLayoutButtons1
-            // 
-            this.tbLayoutButtons1.ColumnCount = 1;
-            this.tbLayoutButtons1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbLayoutButtons1.Controls.Add(this.btnUpdate, 0, 2);
-            this.tbLayoutButtons1.Controls.Add(this.btnSearch, 0, 1);
-            this.tbLayoutButtons1.Controls.Add(this.btnDeleteUserAccount, 0, 3);
-            this.tbLayoutButtons1.Controls.Add(this.btnAddNewUserAccount, 0, 0);
-            this.tbLayoutButtons1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbLayoutButtons1.Location = new System.Drawing.Point(0, 0);
-            this.tbLayoutButtons1.Margin = new System.Windows.Forms.Padding(5);
-            this.tbLayoutButtons1.Name = "tbLayoutButtons1";
-            this.tbLayoutButtons1.Padding = new System.Windows.Forms.Padding(3);
-            this.tbLayoutButtons1.RowCount = 8;
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.Size = new System.Drawing.Size(200, 336);
-            this.tbLayoutButtons1.TabIndex = 1;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.btnExit, 0, 6);
-            this.tableLayoutPanel2.Controls.Add(this.btnListAllUsers, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnClearAll, 0, 5);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(5);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.Padding = new System.Windows.Forms.Padding(3);
-            this.tableLayoutPanel2.RowCount = 7;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(200, 289);
-            this.tableLayoutPanel2.TabIndex = 2;
+            this.btnClearAll.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnClearAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearAll.Location = new System.Drawing.Point(6, 206);
+            this.btnClearAll.Name = "btnClearAll";
+            this.btnClearAll.Size = new System.Drawing.Size(188, 34);
+            this.btnClearAll.TabIndex = 35;
+            this.btnClearAll.Text = "Clear All";
+            this.btnClearAll.UseVisualStyleBackColor = true;
+            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
             // 
             // FormUserAccount
             // 
@@ -494,9 +494,9 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.tbLayoutButtons1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtGridUserAccounts)).EndInit();
             this.panel3.ResumeLayout(false);
-            this.tbLayoutButtons1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 

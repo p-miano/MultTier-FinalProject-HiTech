@@ -29,6 +29,12 @@ namespace Hi_TechApp
             userForm.ShowDialog();
         }
 
+        private void btnCustomers_Click(object sender, EventArgs e)
+        {
+            FormCustomer customerForm = new FormCustomer();
+            customerForm.ShowDialog();
+        }
+
         private void btnExit_Click(object sender, EventArgs e)
         {
             // Exit the form with confirmation

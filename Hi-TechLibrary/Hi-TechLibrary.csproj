@@ -42,12 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\Customer.cs" />
     <Compile Include="BLL\Employee.cs" />
     <Compile Include="BLL\PermissionManager.cs" />
     <Compile Include="BLL\Position.cs" />
     <Compile Include="BLL\UserRole.cs" />
     <Compile Include="BLL\UserAccount.cs" />
     <Compile Include="BLL\Utilities.cs" />
+    <Compile Include="DAL\CustomerDB.cs" />
     <Compile Include="DAL\EmployeeDB.cs" />
     <Compile Include="DAL\PositionDB.cs" />
     <Compile Include="DAL\UserAccountDB.cs" />

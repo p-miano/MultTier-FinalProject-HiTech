@@ -46,17 +46,17 @@
             this.lblPosition = new System.Windows.Forms.Label();
             this.txtBoxPhoneNumber = new System.Windows.Forms.MaskedTextBox();
             this.panelButtons1 = new System.Windows.Forms.Panel();
-            this.btnClearAll = new System.Windows.Forms.Button();
+            this.tbLayoutButtons1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnDeleteEmployee = new System.Windows.Forms.Button();
             this.btnAddNewEmployee = new System.Windows.Forms.Button();
             this.dtGridEmployees = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.btnListAllEmployees = new System.Windows.Forms.Button();
-            this.tbLayoutButtons1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnClearAll = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
+            this.btnListAllEmployees = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -64,9 +64,9 @@
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panelButtons1.SuspendLayout();
+            this.tbLayoutButtons1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGridEmployees)).BeginInit();
             this.panel3.SuspendLayout();
-            this.tbLayoutButtons1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,7 +131,7 @@
             this.tableLayoutPanel1.Controls.Add(this.cmbBoxPosition, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblPosition, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.txtBoxPhoneNumber, 4, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 6);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 6);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -285,17 +285,30 @@
             this.panelButtons1.Size = new System.Drawing.Size(200, 336);
             this.panelButtons1.TabIndex = 0;
             // 
-            // btnClearAll
+            // tbLayoutButtons1
             // 
-            this.btnClearAll.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnClearAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearAll.Location = new System.Drawing.Point(6, 206);
-            this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(188, 34);
-            this.btnClearAll.TabIndex = 13;
-            this.btnClearAll.Text = "Clear All";
-            this.btnClearAll.UseVisualStyleBackColor = true;
-            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
+            this.tbLayoutButtons1.ColumnCount = 1;
+            this.tbLayoutButtons1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbLayoutButtons1.Controls.Add(this.btnUpdate, 0, 2);
+            this.tbLayoutButtons1.Controls.Add(this.btnSearch, 0, 1);
+            this.tbLayoutButtons1.Controls.Add(this.btnDeleteEmployee, 0, 3);
+            this.tbLayoutButtons1.Controls.Add(this.btnAddNewEmployee, 0, 0);
+            this.tbLayoutButtons1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbLayoutButtons1.Location = new System.Drawing.Point(0, 0);
+            this.tbLayoutButtons1.Margin = new System.Windows.Forms.Padding(5);
+            this.tbLayoutButtons1.Name = "tbLayoutButtons1";
+            this.tbLayoutButtons1.Padding = new System.Windows.Forms.Padding(3);
+            this.tbLayoutButtons1.RowCount = 8;
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tbLayoutButtons1.Size = new System.Drawing.Size(200, 336);
+            this.tbLayoutButtons1.TabIndex = 0;
             // 
             // btnUpdate
             // 
@@ -364,43 +377,6 @@
             this.panel3.Size = new System.Drawing.Size(200, 289);
             this.panel3.TabIndex = 0;
             // 
-            // btnListAllEmployees
-            // 
-            this.btnListAllEmployees.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnListAllEmployees.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnListAllEmployees.Location = new System.Drawing.Point(6, 6);
-            this.btnListAllEmployees.Name = "btnListAllEmployees";
-            this.btnListAllEmployees.Size = new System.Drawing.Size(188, 34);
-            this.btnListAllEmployees.TabIndex = 12;
-            this.btnListAllEmployees.Text = "List all employees";
-            this.btnListAllEmployees.UseVisualStyleBackColor = true;
-            this.btnListAllEmployees.Click += new System.EventHandler(this.btnListAllEmployees_Click);
-            // 
-            // tbLayoutButtons1
-            // 
-            this.tbLayoutButtons1.ColumnCount = 1;
-            this.tbLayoutButtons1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbLayoutButtons1.Controls.Add(this.btnUpdate, 0, 2);
-            this.tbLayoutButtons1.Controls.Add(this.btnSearch, 0, 1);
-            this.tbLayoutButtons1.Controls.Add(this.btnDeleteEmployee, 0, 3);
-            this.tbLayoutButtons1.Controls.Add(this.btnAddNewEmployee, 0, 0);
-            this.tbLayoutButtons1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbLayoutButtons1.Location = new System.Drawing.Point(0, 0);
-            this.tbLayoutButtons1.Margin = new System.Windows.Forms.Padding(5);
-            this.tbLayoutButtons1.Name = "tbLayoutButtons1";
-            this.tbLayoutButtons1.Padding = new System.Windows.Forms.Padding(3);
-            this.tbLayoutButtons1.RowCount = 8;
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tbLayoutButtons1.Size = new System.Drawing.Size(200, 336);
-            this.tbLayoutButtons1.TabIndex = 0;
-            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
@@ -424,6 +400,18 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(200, 289);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
+            // btnClearAll
+            // 
+            this.btnClearAll.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnClearAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearAll.Location = new System.Drawing.Point(6, 206);
+            this.btnClearAll.Name = "btnClearAll";
+            this.btnClearAll.Size = new System.Drawing.Size(188, 34);
+            this.btnClearAll.TabIndex = 13;
+            this.btnClearAll.Text = "Clear All";
+            this.btnClearAll.UseVisualStyleBackColor = true;
+            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
+            // 
             // btnExit
             // 
             this.btnExit.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -435,6 +423,18 @@
             this.btnExit.Text = "E&xit";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // btnListAllEmployees
+            // 
+            this.btnListAllEmployees.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnListAllEmployees.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnListAllEmployees.Location = new System.Drawing.Point(6, 6);
+            this.btnListAllEmployees.Name = "btnListAllEmployees";
+            this.btnListAllEmployees.Size = new System.Drawing.Size(188, 34);
+            this.btnListAllEmployees.TabIndex = 12;
+            this.btnListAllEmployees.Text = "List all employees";
+            this.btnListAllEmployees.UseVisualStyleBackColor = true;
+            this.btnListAllEmployees.Click += new System.EventHandler(this.btnListAllEmployees_Click);
             // 
             // FormEmployee
             // 
@@ -455,9 +455,9 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panelButtons1.ResumeLayout(false);
+            this.tbLayoutButtons1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtGridEmployees)).EndInit();
             this.panel3.ResumeLayout(false);
-            this.tbLayoutButtons1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
